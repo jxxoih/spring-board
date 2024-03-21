@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.board_0320.mappers.IBoardMapper">
+    <select id="selectArticles" resultType="com.learning.board_0320.dtos.ArticleDto">
+        SELECT * FROM `springJSP`.`board` ORDER BY `board_id` DESC
+    </select>
+</mapper>
