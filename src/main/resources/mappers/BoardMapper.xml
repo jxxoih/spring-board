@@ -3,6 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learning.board_0320.mappers.IBoardMapper">
     <select id="selectArticles" resultType="com.learning.board_0320.dtos.ArticleDto">
-        SELECT * FROM `springJSP`.`board` ORDER BY `board_id` DESC
+        SELECT * FROM `springJSP`.`board`
+                 WHERE `use_state` > 0
+                 ORDER BY `board_id` DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="selectArticleCount" resultType="int">
+        SELECT COUNT(`board_id`) FROM `springJSP`.`board`
+        WHERE `use_state` > 0;
+    </select>
+
+    <insert id="insertArticle">
+        INSERT INTO `springJSP`.`board` (`board_title`, `board_content`, `board_writer`)
+        VALUES (#{board_title}, #{board_content}, #{board_writer})
+    </insert>
+
+    <select id="selectArticle" resultType="com.learning.board_0320.dtos.ArticleDto">
+        SELECT * FROM `springJSP`.`board` WHERE `board_id` = #{aid}
     </select>
 </mapper>

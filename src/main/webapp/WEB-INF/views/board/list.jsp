@@ -20,7 +20,7 @@
     </thead>
     <tbody>
         <c:forEach var="article" items="${vo.articles}">
-            <tr>
+            <tr onclick="window.location.href='/board/read/${article.board_id}?is=0&p=${vo.page}'">
                 <td>${article.board_id}</td>
                 <td>${article.board_title}</td>
                 <td>${article.board_writer}</td>
@@ -30,21 +30,36 @@
         </c:forEach>
     </tbody>
     <tfoot>
-        <td colspan="5">
-            <span>
-                <a>&lt;&lt;</a>
-            </span>
-            <span>
-                <strong>
-                    <a>1</a>
-                </strong>
-            </span>
-            <span>
-                <a>&gt;&gt;</a>
-            </span>
+    <tr class="page">
+        <td colspan="5" style="text-align: center">
+            <c:if test="${vo.page > 1}">
+                <span>
+                    <a href="/board/list/1" target="_self">&lt;&lt;</a>
+                </span>
+            </c:if>
+            <c:forEach var="i" begin="${vo.leftPage}" end="${vo.rightPage}" step="1">
+                <c:if test="${i == vo.page}">
+                    <span>
+                        <strong><a>${i}</a></strong>
+                    </span>
+                </c:if>
+                <c:if test="${i != vo.page}">
+                    <span>
+                        <a href="/board/list/${i}" target="_self">${i}</a>
+                    </span>
+                </c:if>
+            </c:forEach>
+            <c:if test="${vo.page < vo.maxPage}">
+                <span>
+                    <a href="/board/list/${vo.maxPage}" target="_self">&gt;&gt;</a>
+                </span>
+            </c:if>
         </td>
+    </tr>
     </tfoot>
 </table>
-
+<div>
+    <a href="/board/write">글작성</a>
+</div>
 </body>
 </html>

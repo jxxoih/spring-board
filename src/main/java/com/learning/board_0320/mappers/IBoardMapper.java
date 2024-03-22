@@ -12,4 +12,16 @@ public interface IBoardMapper {
             @Param("offset") int offset,
             @Param("limit") int limit
     );
+
+    int selectArticleCount();
+
+    void insertArticle(
+            @Param("board_title") String board_title,
+            @Param("board_content") String board_content,
+            @Param("board_writer") String board_writer
+    );
+
+    ArticleDto selectArticle(
+      @Param("aid") int aid
+    );
 }
