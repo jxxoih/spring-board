@@ -27,8 +27,12 @@
     </tbody>
     <tfoot>
     <tr>
-        <td colspan="6">
+        <td colspan="3">
             <a href="/board/list/${param.p}">목록</a>
+        </td>
+        <td colspan="3">
+            <a href="/board/edit/${vo.board_id}">수정</a>
+            <a href="/board/delete/${vo.board_id}">삭제</a>
         </td>
     </tr>
     </tfoot>

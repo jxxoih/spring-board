@@ -20,7 +20,7 @@
     </thead>
     <tbody>
         <c:forEach var="article" items="${vo.articles}">
-            <tr onclick="window.location.href='/board/read/${article.board_id}?is=0&p=${vo.page}'">
+            <tr onclick="window.location.href='/board/read?aid=${article.board_id}&p=${vo.page}'">
                 <td>${article.board_id}</td>
                 <td>${article.board_title}</td>
                 <td>${article.board_writer}</td>

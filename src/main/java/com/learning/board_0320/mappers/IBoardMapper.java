@@ -22,6 +22,29 @@ public interface IBoardMapper {
     );
 
     ArticleDto selectArticle(
-      @Param("aid") int aid
+            @Param("aid") int aid
+    );
+
+    void deleteArticle(
+            @Param("aid") int aid
+    );
+
+    void insertDeleteLog(
+            @Param("aid") int aid
+    );
+
+    String selectBoardWriter(
+            @Param("aid") int aid
+    );
+
+    void updateArticle(
+            @Param("aid") int aid,
+            @Param("board_title") String board_title,
+            @Param("board_content") String board_content,
+            @Param("board_writer") String board_writer
+    );
+
+    void updateBoardViewCount(
+            @Param("aid") int aid
     );
 }

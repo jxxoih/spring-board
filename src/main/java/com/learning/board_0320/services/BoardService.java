@@ -1,13 +1,14 @@
 package com.learning.board_0320.services;
 
 import com.learning.board_0320.dtos.ArticleDto;
+import com.learning.board_0320.enums.DeleteResult;
+import com.learning.board_0320.enums.EditResult;
 import com.learning.board_0320.enums.WriteResult;
 import com.learning.board_0320.mappers.IBoardMapper;
-import com.learning.board_0320.vos.board.ListVo;
-import com.learning.board_0320.vos.board.ReadVo;
-import com.learning.board_0320.vos.board.WriteVo;
+import com.learning.board_0320.vos.board.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -71,5 +72,37 @@ public class BoardService {
 
         ArticleDto articleDto = boardMapper.selectArticle(vo.getArticleId());
         vo.setArticle(articleDto);
+    }
+
+    @Transactional
+    public void deleteArticle(DeleteVo vo) {
+        boardMapper.deleteArticle(vo.getArticleId());
+        boardMapper.insertDeleteLog(vo.getArticleId());
+
+        vo.setResult(DeleteResult.OKAY);
+    }
+
+    public void editArticle(EditVo vo) {
+        String board_writer = "jihok9991@gmail.com";
+
+        if(board_writer.isEmpty()
+                || board_writer.equals("")
+                || !board_writer.equals(boardMapper.selectBoardWriter(vo.getArticleId()))) {
+            vo.setResult(EditResult.NOT_AUTHORIZED);
+            return;
+        }
+
+        boardMapper.updateArticle(
+                vo.getArticleId(),
+                vo.getBoard_title(),
+                vo.getBoard_content(),
+                board_writer
+        );
+
+        vo.setResult(EditResult.OKAY);
+    }
+
+    public void boardViewCount(int aid) {
+        boardMapper.updateBoardViewCount(aid);
     }
 }
